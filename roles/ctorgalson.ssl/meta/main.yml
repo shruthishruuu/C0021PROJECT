@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Christopher Torgalson
+  description: A very basic role to manage SSL files and directories.
+
+  role_name: ssl
+
+  license: GPLv3
+
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags:
+    - ssl
+
+dependencies: []

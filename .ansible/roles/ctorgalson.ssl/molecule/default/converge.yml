@@ -1,0 +1,37 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ssl_directories:
+      - path: "/etc/ssl/certs/self"
+        owner: root
+        group: root
+        mode: "u=rwx,go=rx"
+      - path: "/etc/ssl/private"
+        owner: root
+        group: root
+        mode: "u=rwx,go="
+      - path: "/etc/ssl/private/self"
+        owner: root
+        group: root
+        mode: "u=rwx,go=rx"
+    ssl_files:
+      # Copy with "content" property.
+      - content: "{{ lookup('file', playbook_dir + '/certs/www.example.com.crt') }}"
+        dest: "/etc/ssl/certs/www.example.com.crt"
+        owner: root
+        group: root
+        mode: "u=rw,go=r"
+      # Copy with "src" property.
+      - src: "{{ playbook_dir }}/certs/www.example.com.key"
+        dest: "/etc/ssl/certs/www.example.com.key"
+        owner: root
+        group: root
+        mode: "u=rw,go="
+    ssl_self_files:
+      - key_path: "/etc/ssl/self/certs/www.example.com-key.pem"
+        crt_path: "/etc/ssl/self/certs/www.example.com-crt.pem"
+        csr_path: "/etc/ssl/self/private/www.example.com.csr"
+        csr_common_name: "www.example.com"
+  roles:
+    - role: ansible-role-ssl

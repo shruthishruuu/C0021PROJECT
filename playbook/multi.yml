@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  tasks:
+    - name: install java
+      yum:
+        name: java
+        state: present
+- hosts: test
+  tasks:
+    - name: install maven
+      yum:
+        name: maven
+        state: present

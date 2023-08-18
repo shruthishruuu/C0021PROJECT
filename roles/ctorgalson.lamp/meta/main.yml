@@ -1,0 +1,59 @@
+---
+galaxy_info:
+  author: Christopher Torgalson
+  description: Role to encapsulate commonly-used LAMP configuration.
+
+  role_name: lamp
+
+  license: GPLv2
+
+  min_ansible_version: 2.5
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags:
+    - lamp
+    - apache
+    - mysql
+    - php
+
+dependencies:
+  - role: weareinteractive.apt
+    when: "'apt' in lamp_configure"
+    tags:
+      - apt
+  - role: ctorgalson.files
+    when: "'files' in lamp_configure"
+    tags:
+      - files
+      - apache
+  - role: ctorgalson.ssl
+    when: "'ssl' in lamp_configure"
+    tags:
+      - ssl
+      - apache
+  - role: geerlingguy.mysql
+    when: "'mysql' in lamp_configure"
+    tags:
+      - mysql
+  - role: geerlingguy.apache
+    when: "'apache' in lamp_configure"
+    tags:
+      - apache
+  - role: geerlingguy.php
+    when: "'php' in lamp_configure"
+    tags:
+      - php
+  - role: geerlingguy.apache-php-fpm
+    when: "'fpm' in lamp_configure"
+    tags:
+      - php
+      - fpm
+  - role: geerlingguy.composer
+    when: "'composer' in lamp_configure"
+    tags:
+      - php
+      - composer

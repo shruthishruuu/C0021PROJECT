@@ -1,0 +1,7 @@
+---
+# Prepare playbook for `phpfpm` scenario.
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Include required common tasks.
+      include_tasks: "{{ playbook_dir }}/../tasks/prepare.yml"

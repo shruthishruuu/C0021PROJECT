@@ -1,0 +1,33 @@
+---
+# tasks file for ansible-role-ssl
+
+- name: Make sure specified directories exist.
+  file:
+    path: "{{ directory.path }}"
+    owner: "{{ directory.owner | default(omit) }}"
+    group: "{{ directory.group | default(omit) }}"
+    mode: "{{ directory.mode | default(omit) }}"
+    state: directory
+  loop: "{{ ssl_directories }}"
+  loop_control:
+    loop_var: directory
+
+- name: Copy key and certificate files into place.
+  copy:
+    content: "{{ file.content | default(omit) }}"
+    src: "{{ file.src | default(omit) }}"
+    dest: "{{ file.dest }}"
+    owner: "{{ file.owner | default(omit) }}"
+    group: "{{ file.group | default(omit) }}"
+    mode: "{{ file.mode | default(omit) }}"
+    force: "{{ file.force | default(false) }}"
+  no_log: true
+  loop: "{{ ssl_files }}"
+  loop_control:
+    loop_var: file
+
+- name: Create self-signed certificates.
+  include_tasks: "generate.yml"
+  loop: "{{ ssl_self_files }}"
+  loop_control:
+    loop_var: self_cert

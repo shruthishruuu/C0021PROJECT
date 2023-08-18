@@ -1,0 +1,11 @@
+---
+- name: Build Code using Maven
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Build Code
+      shell: mvn clean install
+      args:
+        chdir: /path/to/your/local/directory
+

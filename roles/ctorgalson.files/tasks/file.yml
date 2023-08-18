@@ -1,0 +1,10 @@
+---
+# file tasks for ansible-role-files.
+
+- name: Ensure required files exist.
+  file:
+    path: "{{ file.path }}"
+    owner: "{{ file.owner | default(omit) }}"
+    group: "{{ file.group | default(omit) }}"
+    mode: "{{ file.mode | default(omit) }}"
+    state: "{{ file.state }}"

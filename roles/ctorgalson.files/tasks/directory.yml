@@ -1,0 +1,11 @@
+---
+# directory tasks file for ansible-role-files.
+
+- name: Ensure required directories exist.
+  file:
+    path: "{{ file.path }}"
+    owner: "{{ file.owner | default(omit) }}"
+    group: "{{ file.group | default(omit) }}"
+    mode: "{{ file.mode | default(omit) }}"
+    recurse: "{{ file.recurse | default(omit) }}"
+    state: directory

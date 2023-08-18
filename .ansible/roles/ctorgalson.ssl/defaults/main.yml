@@ -1,0 +1,35 @@
+---
+# defaults file for ansible-role-ssl
+
+# A list of ssl-related directories that must exist on the remote server.
+ssl_directories: []
+#  - path: "/etc/ssl/certs"
+#    owner: root
+#    group: root
+#    mode: "u=rwx,go=rx"
+#  - path: "/etc/ssl/private"
+#    owner: root
+#    group: root
+#    mode: "u=rwx,go=rx"
+
+# A list of files to copy from the local filesystem to the remote server.
+ssl_files: []
+#  - src: "{{ playbook_dir }}/certs/www.example.com.crt"
+#    dest: "/etc/ssl/certs/www.example.com.crt"
+#    owner: root
+#    group: root
+#    mode: "u=rw,go=r"
+#    force: true
+#  - src: "{{ playbook_dir }}/certs/www.example.com.key"
+#    dest: "/etc/ssl/private/www.example.com.key"
+#    owner: root
+#    group: root
+#    mode: "u=rw,go="
+#    force: false
+
+# A list of paths for key, csr, and cert, plus common name.
+ssl_self_files: []
+#  - key_path: "/etc/ssl/self/certs/www.example.com-key.pem"
+#    crt_path: "/etc/ssl/self/certs/www.example.com-crt.pem"
+#    csr_path: "/etc/ssl/self/private/www.example.com.csr"
+#    csr_common_name: "www.example.com"

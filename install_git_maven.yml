@@ -1,0 +1,14 @@
+---
+- name: Install Git and Maven
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Git and Maven
+      apt:
+        name: ['git', 'maven']
+        state: present
+      
+      
+      
+

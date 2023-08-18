@@ -1,0 +1,6 @@
+[dev]
+172.31.5.244 ansible_ssh_user=root
+
+[test]
+172.31.0.116 ansible_ssh_user=root
+

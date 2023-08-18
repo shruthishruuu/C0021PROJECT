@@ -1,0 +1,12 @@
+---
+- name: Clone or Pull Code from GitHub
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Clone or Pull Repository
+      git:
+        repo: https://github.com/shruthishruuu/C0021PROJECT.git
+        dest: /path/to/your/local/directory
+        update: yes
+

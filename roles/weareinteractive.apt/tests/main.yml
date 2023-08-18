@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  become: yes
+  roles:
+    - weareinteractive.apt
+  vars:
+    apt_cache_valid_time: 7200
+    apt_packages:
+      - vim
+      - tree
+      - name: ca-certificates
+        state: latest
+        hold: true
+      - name: zsh
+        state: absent
+        purge: true
+    apt_deb_packages:
+      - "https://releases.hashicorp.com/vagrant/2.1.5/vagrant_2.1.5_x86_64.deb"
+    apt_mails:
+      - root
+    apt_preferences:
+      - file: perl
+        package: perl
+        pin: "version 5.20*"
+        priority: 1001
+    apt_unattended_upgrades_notify_error_only: no
+    apt_remove_recommends: yes
+    apt_remove_suggests: yes
+    apt_remove_purge: yes

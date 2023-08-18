@@ -1,0 +1,15 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Ensure we can run SSL tasks in Ansible.
+      block:
+        - name: Install pip.
+          apt:
+            name: python-pip
+            state: present
+
+        - name: Install pyOpenSSL.
+          pip:
+            name: pyOpenSSL
+            state: present

@@ -1,0 +1,9 @@
+---
+ - hosts: all
+   user: root
+   become: yes
+   tasks:
+     - name: delete test1 directory
+       file:
+        path: /root/test1
+        state: absent

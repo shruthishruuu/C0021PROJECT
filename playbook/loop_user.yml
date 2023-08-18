@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: user creation with loop
+      user:
+        name: "{{ item.user }}"
+        state: present
+        groups: "{{ item.groups }}"
+      loop:
+        - { user: 'testuser1', groups: 'test' } 
+        - { user: 'testuser2', groups: 'test' }
+

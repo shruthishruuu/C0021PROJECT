@@ -1,0 +1,43 @@
+---
+# generate tasks file for ansible-role-ssl
+#
+# Adapted from Jeff Geerling's 2017 blog post:
+# https://www.jeffgeerling.com/blog/2017/generating-self-signed-openssl-certs-ansible-24s-crypto-modules
+
+- name: Create new key and containing directory.
+  block:
+    - name: Ensure parent directory exists.
+      file:
+        path: "{{ self_cert.key_path | dirname }}"
+        state: directory
+
+    - name: Generate an OpenSSL private key.
+      openssl_privatekey:
+        path: "{{ self_cert.key_path }}"
+
+- name: Create new csr and containing directory.
+  block:
+    - name: Ensure parent directory exists.
+      file:
+        path: "{{ self_cert.csr_path | dirname }}"
+        state: directory
+
+    - name: Generate an OpenSSL csr.
+      openssl_csr:
+        path: "{{ self_cert.csr_path }}"
+        privatekey_path: "{{ self_cert.key_path }}"
+        common_name: "{{ self_cert.csr_common_name }}"
+
+- name: Create new cert and containing directory.
+  block:
+    - name: Ensure parent directory exists.
+      file:
+        path: "{{ self_cert.crt_path | dirname }}"
+        state: directory
+
+    - name: Generate a Self Signed OpenSSL certificate.
+      openssl_certificate:
+        path: "{{ self_cert.crt_path }}"
+        privatekey_path: "{{ self_cert.key_path }}"
+        csr_path: "{{ self_cert.csr_path }}"
+        provider: selfsigned

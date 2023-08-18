@@ -1,0 +1,5 @@
+*.log
+*.pyc
+.virtualenv
+__pycache__
+molecule/files/certs/*

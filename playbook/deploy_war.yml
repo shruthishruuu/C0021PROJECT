@@ -1,0 +1,11 @@
+---
+- name: Deploy WAR File into Tomcat
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Copy WAR File to Tomcat webapps directory
+      copy:
+        src: /path/to/your/local/directory/target/your-app.war
+        dest: /var/lib/tomcat9/webapps/  
+

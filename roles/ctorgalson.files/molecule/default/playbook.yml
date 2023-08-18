@@ -1,0 +1,81 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    username: "lorem"
+
+  pre_tasks:
+    - name: Create user.
+      user:
+        name: "{{ username }}"
+
+    - name: Create file to delete.
+      file:
+        path: "/home/{{ username }}/DELETE"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        state: touch
+      changed_when: false
+
+    - name: Create a file and symlink to it.
+      block:
+        - name: Create a linkable file.
+          file:
+            path: "/home/{{ username }}/fubar"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            state: touch
+          changed_when: false
+
+        - name: Create a symlink to the file.
+          file:
+            src: "/home/{{ username }}/fubar"
+            dest: "/home/{{ username }}/fubar-link"
+            state: link
+          changed_when: false
+
+    - name: Bork permissions on .bashrc.
+      file:
+        path: "/home/{{ username }}/.bashrc"
+        mode: "u=r,go="
+      changed_when: false
+
+  roles:
+    - role: ansible-role-files
+      vars:
+        files_files:
+          # State: directory.
+          - path: "/home/{{ username }}"
+            mode: "u=rwx,go="
+            state: directory
+          - path: "/home/{{ username }}/foo/bar"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            state: directory
+            mode: "u=rwx,g=rx,o="
+          # State: touch.
+          - path: "/home/{{ username }}/baz"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            state: touch
+          # State: file.
+          - path: "/home/{{ username }}/.bashrc"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            mode: "u=rw,go=r"
+            state: file
+          # State: absent.
+          - path: "/home/{{ username }}/DELETE"
+            state: absent
+          # State: link.
+          - src: "/home/{{ username }}/foo/bar"
+            dest: "/home/{{ username }}/foobar"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            state: link
+          - src: "/home/{{ username }}/foo/bar"
+            dest: "/home/{{ username }}/fubar-link"
+            owner: "{{ username }}"
+            group: "{{ username }}"
+            state: link
+            force: true

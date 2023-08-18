@@ -1,0 +1,7 @@
+---
+# absent tasks for ansible-role-files.
+
+- name: Ensure certain files and directories are absent.
+  file:
+    path: "{{ file.path }}"
+    state: absent

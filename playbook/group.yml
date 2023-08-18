@@ -1,0 +1,8 @@
+---
+- hosts: dev
+  user: root
+  tasks: 
+   - name: create a group
+     group:
+       name: test
+       state: present

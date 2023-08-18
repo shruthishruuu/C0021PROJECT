@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: create multiple files
+      file:
+        path: "{{item}}"
+        state: directory
+      loop:
+        - /root/test1
+        - /root/test2
+        - /root/test3
+

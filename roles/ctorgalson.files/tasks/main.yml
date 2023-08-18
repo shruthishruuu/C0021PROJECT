@@ -1,0 +1,15 @@
+---
+# main tasks file for ansible-role-files
+
+- name: Ensure specified files, links, and directories exist.
+  # We handle various 'states' of the file module in the following includes:
+  #   - file, touch: file
+  #   - link, hard: link
+  #   - directory: directory
+  #   - absent: absent
+  include_tasks: "{% if files_file.state in ['file', 'touch'] %}file{% elif files_file.state in ['link', 'hard'] %}link{% else %}{{ files_file.state }}{% endif %}.yml"
+  vars:
+    file: "{{ files_file }}"
+  loop: "{{ files_files }}"
+  loop_control:
+    loop_var: files_file

@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Christopher Torgalson
+  description: A role to simplify the creation of files, directories, and links.
+
+  license: GPLv3
+
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+
+  galaxy_tags:
+    - files
+
+dependencies: []
